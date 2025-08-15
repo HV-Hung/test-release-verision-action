@@ -19,7 +19,7 @@ jobs:
           prefix: "v"
           suffix: "NONE"
           only-bump-suffix: "false"
-          create-tag: "false"    # don’t tag on PRs
+          create-tag: "true"    # don’t tag on PRs
           mode: "semantic"
 
       - name: Comment next version
