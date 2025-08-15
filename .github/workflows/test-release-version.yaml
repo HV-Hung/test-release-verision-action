@@ -1,0 +1,27 @@
+name: version-check
+on:
+  push:
+    branches: [main]
+
+jobs:
+  next-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed if create-tag=true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: wemogy/get-release-version-action@v4.3.2
+        id: ver
+        with:
+          prefix: "v"
+          suffix: "NONE"
+          only-bump-suffix: "false"
+          create-tag: "false"    # don’t tag on PRs
+          mode: "semantic"
+
+      - name: Comment next version
+        run: |
+          echo "Next version: ${{ steps.ver.outputs.version-name }}"
